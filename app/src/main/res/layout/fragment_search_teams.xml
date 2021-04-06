@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewmodel"
+            type="com.example.nike.features.teams.TeamsViewModel" />
+    </data>
+
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".features.teams.SearchTeamsFragment">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}"
+            android:layout_margin="@dimen/section_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:id="@+id/searchedTeam"
+                    android:text="@string/searchedTeam"
+                    android:visibility="@{viewmodel.searchedTeam.empty ? View.GONE : View.VISIBLE}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/searchedTeamName"
+                    android:text="@{viewmodel.searchedTeam}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/team_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layoutAnimation="@anim/layout_anim_serachteams"
+                android:orientation="horizontal"
+                app:teams="@{viewmodel.teams}"/>
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>
